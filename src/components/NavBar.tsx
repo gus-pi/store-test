@@ -3,9 +3,8 @@ import { Link } from 'react-router';
 const NavBar = () => {
   return (
     <div className="navbar bg-base-100 shadow-sm gap-5">
-      <div className="flex-1">
-        <a className="btn btn-ghost text-xl">Store</a>
-      </div>
+      <a className="btn btn-ghost text-xl">Store</a>
+
       <Link to="/products">Products</Link>
       <div className="flex-none">
         <div className="dropdown dropdown-end">

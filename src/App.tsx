@@ -4,10 +4,14 @@ import SideBar from './components/SideBar';
 
 const App = () => {
   return (
-    <div>
+    <div className="flex flex-col">
       <NavBar />
-      <SideBar />
-      <Outlet />
+      <div className="flex flex-1">
+        <SideBar />
+        <main className="flex flex-1 px-1 max-h-[100px]">
+          <Outlet />
+        </main>
+      </div>
     </div>
   );
 };
