@@ -4,6 +4,7 @@ export type Category = {
     slug: string,
 }
 export type Product = {
+    id: string,
     images: [string],
     title: string,
     description: string,

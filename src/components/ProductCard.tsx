@@ -1,14 +1,17 @@
+import { Link } from 'react-router';
 import { Product } from '../lib/types';
 
 const ProductCard = ({ product }: { product: Product }) => {
   return (
     <div className="card bg-base-100 w-64 h-96 shadow-sm flex flex-col overflow-hidden">
       <figure className="h-1/2 overflow-hidden ">
-        <img
-          src={product.images[0]}
-          alt={product.title}
-          className="h-full w-full object-cover"
-        />
+        <Link to={`/product/${product.id}`}>
+          <img
+            src={product.images[0]}
+            alt={product.title}
+            className="h-full w-full object-cover"
+          />
+        </Link>
       </figure>
       <div className="card-body p-4 flex flex-col justify-between h-1/2 overflow-hidden">
         <h2 className="card-title text-sm">{product.title}</h2>
