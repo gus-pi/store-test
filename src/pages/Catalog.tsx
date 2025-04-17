@@ -18,7 +18,7 @@ const Catalog = () => {
   }, []);
   return (
     <div className="my-5 mx-5">
-      <ul className="grid grid-cols-4 gap-5">
+      <ul className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 gap-5">
         {products?.map((product: Product) => (
           <li key={product.title}>
             <ProductCard product={product} />
