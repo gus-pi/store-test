@@ -7,7 +7,6 @@ const App = () => {
     <div className="flex flex-col min-h-screen">
       <NavBar />
       <div className="flex flex-row">
-        <SideBar />
         <main className="flex flex-1 px-1">
           <Outlet />
         </main>
