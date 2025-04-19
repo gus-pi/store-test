@@ -4,7 +4,7 @@ import { fetchProducts } from '../services/productServices';
 import ProductCard from '../components/ProductCard';
 import SideBar from '../components/SideBar';
 
-const Catalog = () => {
+const ProductsPage = () => {
   const [products, setProducts] = useState<Product[]>();
   const [offset, setOffset] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
@@ -57,4 +57,4 @@ const Catalog = () => {
     </div>
   );
 };
-export default Catalog;
+export default ProductsPage;
