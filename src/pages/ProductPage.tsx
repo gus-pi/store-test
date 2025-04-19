@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 
 const ProductPage = () => {
   const [product, setProduct] = useState<Product>();
+  const [imgIndex, setImgIndex] = useState(0);
   const { id } = useParams();
 
   const getProduct = async (id: string) => {
@@ -24,10 +25,30 @@ const ProductPage = () => {
 
   return (
     <div className="flex flex-row justify-between">
-      <div className="card bg-base-100 w-96 shadow-sm flex flex-col overflow-hidden">
-        <figure>
-          <img src={product?.images[0]} />
-        </figure>
+      <div className="card bg-base-100 max-w-1/4 shadow-sm flex flex-col overflow-hidden">
+        <div className="carousel w-full">
+          <div id="slide1" className="carousel-item relative w-full">
+            <img src={product?.images[imgIndex]} className="w-full" />
+            <div className="absolute left-5 right-5 bottom-0 mb-2 flex  transform justify-between">
+              <button
+                className="btn btn-circle btn-sm"
+                onClick={() => setImgIndex(imgIndex - 1)}
+                disabled={imgIndex <= 0}
+              >
+                ❮
+              </button>
+              <button
+                className="btn btn-circle  btn-sm"
+                onClick={() => setImgIndex(imgIndex + 1)}
+                disabled={
+                  product?.images && imgIndex >= product?.images.length - 1
+                }
+              >
+                ❯
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
       <div>
         <h2>{product?.title}</h2>
