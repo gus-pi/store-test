@@ -3,7 +3,7 @@ import { Product } from '../lib/types';
 import { fetchSingleProduct } from '../services/productServices';
 import { useEffect, useState } from 'react';
 
-const ProductPage = () => {
+const SingleProductPage = () => {
   const [product, setProduct] = useState<Product>();
   const [imgIndex, setImgIndex] = useState(0);
   const { id } = useParams();
@@ -24,8 +24,8 @@ const ProductPage = () => {
   }, []);
 
   return (
-    <div className="flex flex-row justify-between">
-      <div className="card bg-base-100 max-w-1/4 shadow-sm flex flex-col overflow-hidden">
+    <div className="flex flex-col sm:flex-row items-center justify-center mx-5">
+      <div className="card max-w-96 shadow-sm flex flex-col overflow-hidden bg-warning">
         <div className="carousel w-full">
           <div id="slide1" className="carousel-item relative w-full">
             <img src={product?.images[imgIndex]} className="w-full" />
@@ -50,10 +50,10 @@ const ProductPage = () => {
           </div>
         </div>
       </div>
-      <div>
-        <h2>{product?.title}</h2>
-        <h1>{product?.description}</h1>
-        <div className="flex justify-around">
+      <div className="max-w-1/3 mx-10">
+        <h1 className="text-2xl">{product?.title}</h1>
+        <p className="text-justify mt-1">{product?.description}</p>
+        <div className="flex justify-around mt-5 font-bold">
           <p>${product?.price}</p>
           <button className="btn btn-sm btn-primary">Add to Cart</button>
         </div>
@@ -62,4 +62,4 @@ const ProductPage = () => {
   );
 };
 
-export default ProductPage;
+export default SingleProductPage;

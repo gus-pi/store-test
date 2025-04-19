@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router';
 import App from '../App';
 import ProductsPage from '../pages/ProductsPage';
-import ProductPage from '../pages/ProductPage';
+import SingleProductPage from '../pages/SingleProductPage';
 
 const router = createBrowserRouter([
   {
@@ -9,7 +9,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { path: '/products', element: <ProductsPage /> },
-      { path: '/product/:id', element: <ProductPage /> },
+      { path: '/product/:id', element: <SingleProductPage /> },
     ],
   },
 ]);
