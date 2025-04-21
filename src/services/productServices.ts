@@ -1,6 +1,6 @@
-export const fetchProducts = async (offset: number, limit: number) => {
+export const fetchProducts = async (offset: number, limit: number, categoryId: string) => {
     try {
-        const response = await fetch(`https://api.escuelajs.co/api/v1/products?offset=${offset}&limit=${limit}`)
+        const response = await fetch(`https://api.escuelajs.co/api/v1/products?offset=${offset}&limit=${limit}&categoryId=${categoryId}`)
         const data = await response.json()
         return data
     } catch (error) {
