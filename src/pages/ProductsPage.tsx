@@ -32,38 +32,45 @@ const ProductsPage = () => {
   }, [currentPage, activeFilter]);
 
   return (
-    <div className="">
-      <div className="flex flex-row">
-        <SideBar
-          activeFilter={activeFilter}
-          setActiveFilter={setActiveFilter}
-        />
-        <div className="my-5 mx-5 flex flex-col items-center gap-4">
-          <ul className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 gap-5">
-            {products?.map((product: Product) => (
-              <li key={product.title}>
-                <ProductCard product={product} />
-              </li>
-            ))}
-          </ul>
-          <div className="join">
-            <button
-              className="join-item btn btn-sm"
-              onClick={() => setCurrentPage(currentPage - 1)}
-              disabled={currentPage === 0}
-            >
-              «
-            </button>
-            <p className="join-item btn btn-sm">{currentPage + 1}</p>
-            <button
-              className="join-item btn btn-sm"
-              onClick={() => setCurrentPage(currentPage + 1)}
-              disabled={currentPage >= totalPages - 1}
-            >
-              »
-            </button>
-          </div>
-        </div>
+    <div className="flex flex-row min-h-svh min-w-screen">
+      <SideBar
+        activeFilter={activeFilter}
+        setActiveFilter={setActiveFilter}
+        setCurrentPage={setCurrentPage}
+      />
+      <div className="flex-1 flex flex-col items-center justify-start py-5 px-5">
+        {products && products.length > 0 ? (
+          <>
+            <ul className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 gap-5">
+              {products.map((product: Product) => (
+                <li key={product.title}>
+                  <ProductCard product={product} />
+                </li>
+              ))}
+            </ul>
+            <div className="join mt-5">
+              <button
+                className="join-item btn btn-sm"
+                onClick={() => setCurrentPage(currentPage - 1)}
+                disabled={currentPage === 0}
+              >
+                «
+              </button>
+              <p className="join-item btn btn-sm">{currentPage + 1}</p>
+              <button
+                className="join-item btn btn-sm"
+                onClick={() => setCurrentPage(currentPage + 1)}
+                disabled={currentPage === totalPages - 1}
+              >
+                »
+              </button>
+            </div>
+          </>
+        ) : (
+          <p className="text-center text-gray-500 mt-20 text-lg">
+            No products to show
+          </p>
+        )}
       </div>
     </div>
   );
