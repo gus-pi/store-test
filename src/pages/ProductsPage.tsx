@@ -8,7 +8,7 @@ const ProductsPage = () => {
   const [products, setProducts] = useState<Product[]>();
   const [activeFilter, setActiveFilter] = useState({
     category: '0',
-    searchQuery: '',
+    title: '',
     priceRange: { label: 'Default', min: 0, max: 100 },
   });
   const [currentPage, setCurrentPage] = useState(0);
@@ -18,6 +18,7 @@ const ProductsPage = () => {
   const getProducts = async () => {
     try {
       const productsData = await fetchProducts(
+        activeFilter.title,
         currentPage * limit,
         limit,
         activeFilter.category

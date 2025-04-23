@@ -19,7 +19,7 @@ const SideBar = ({
       const categoriesData = await fetchCategories();
       setCategories(categoriesData);
     } catch (error) {
-      console.log('error getting caregories');
+      console.log('error getting categories');
     }
   };
 
@@ -52,7 +52,14 @@ const SideBar = ({
           </select>
         )}
         <li>
-          <input type="text" placeholder="Search" />
+          <input
+            className="px-2"
+            type="text"
+            placeholder="Filter by title"
+            onChange={(e) =>
+              setActiveFilter({ ...activeFilter, title: e.target.value })
+            }
+          />
         </li>
         <li>Price range</li>
       </ul>
