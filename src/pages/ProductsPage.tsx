@@ -3,6 +3,7 @@ import { Product } from '../lib/types';
 import { fetchProducts } from '../services/productServices';
 import ProductCard from '../components/ProductCard';
 import SideBar from '../components/SideBar';
+import { useDebouncedCallback } from 'use-debounce';
 
 const ProductsPage = () => {
   const [products, setProducts] = useState<Product[]>();
@@ -28,8 +29,13 @@ const ProductsPage = () => {
       console.log('failed loading products data');
     }
   };
-  useEffect(() => {
+
+  const debouncedFetchUsers = useDebouncedCallback(() => {
     getProducts();
+  }, 400);
+
+  useEffect(() => {
+    debouncedFetchUsers();
   }, [currentPage, activeFilter]);
 
   return (
