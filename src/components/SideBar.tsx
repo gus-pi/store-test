@@ -78,7 +78,30 @@ const SideBar = ({
             />
           </label>
         </li>
-        <li>Price range</li>
+        <li>
+          <label className="text-sm">Filter by price:</label>
+          <input
+            type="range"
+            min={0}
+            max="100"
+            step={25}
+            onChange={(e) =>
+              setActiveFilter({
+                ...activeFilter,
+                priceRange: { min: Number(e.target.value), max: 100 },
+              })
+            }
+            className="range [--range-fill:0]"
+          />
+
+          <div className="flex justify-between px-2.5 mt-2 text-xs">
+            <span>0</span>
+            <span className="translate-x-2">50</span>
+            <span className="translate-x-3">100</span>
+            <span className="translate-x-3">150</span>
+            <span className="translate-x-3">200+</span>
+          </div>
+        </li>
       </ul>
     </div>
   );

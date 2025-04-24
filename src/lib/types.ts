@@ -7,7 +7,7 @@ export type Category = {
 export type Filter = {
     category: string,
     title: string,
-    priceRange: { label: string, min: number, max: number },
+    priceRange: { min: number, max: number }
 
 }
 
