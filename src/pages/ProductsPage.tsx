@@ -10,7 +10,7 @@ const ProductsPage = () => {
   const [activeFilter, setActiveFilter] = useState({
     category: '0',
     title: '',
-    priceRange: { label: 'Default', min: 0, max: 100 },
+    priceRange: { min: 0, max: 700 },
   });
   const [currentPage, setCurrentPage] = useState(0);
   const limit = 8;
@@ -22,7 +22,9 @@ const ProductsPage = () => {
         activeFilter.title,
         currentPage * limit,
         limit,
-        activeFilter.category
+        activeFilter.category,
+        activeFilter.priceRange.min,
+        activeFilter.priceRange.max
       );
       setProducts(productsData);
     } catch (error) {
@@ -30,12 +32,12 @@ const ProductsPage = () => {
     }
   };
 
-  const debouncedFetchUsers = useDebouncedCallback(() => {
+  const debouncedFetchProducts = useDebouncedCallback(() => {
     getProducts();
   }, 400);
 
   useEffect(() => {
-    debouncedFetchUsers();
+    debouncedFetchProducts();
   }, [currentPage, activeFilter]);
 
   return (

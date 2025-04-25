@@ -1,3 +1,4 @@
+import { Range } from 'react-range';
 import React, { useEffect, useState } from 'react';
 import { fetchCategories } from '../services/categoryServices';
 import { Category, Filter } from '../lib/types';
@@ -14,6 +15,7 @@ const SideBar = ({
   setCurrentPage,
 }: SideBarProps) => {
   const [categories, setCategories] = useState<Category[]>();
+  const [values, setValues] = useState([0, 700]);
   const getCategories = async () => {
     try {
       const categoriesData = await fetchCategories();
@@ -23,14 +25,24 @@ const SideBar = ({
     }
   };
 
-  useEffect(() => {
-    getCategories();
-  }, []);
+  const handleChangeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setActiveFilter({
+      ...activeFilter,
+      category: e.target.value,
+    });
 
-  const handlehangeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setActiveFilter({ ...activeFilter, category: e.target.value });
     setCurrentPage(0);
   };
+
+  console.log(activeFilter);
+  useEffect(() => {
+    getCategories();
+    setActiveFilter({
+      ...activeFilter,
+      priceRange: { min: values[0], max: values[1] },
+    });
+    setCurrentPage(0);
+  }, [values]);
 
   return (
     <div className="w-full max-w-[15rem] p-4 shadow-xl shadow-blue-gray-900/5">
@@ -39,7 +51,7 @@ const SideBar = ({
           <select
             defaultValue="Select a category"
             className="select select-neutral"
-            onChange={handlehangeCategory}
+            onChange={handleChangeCategory}
           >
             <option value="0" key={0}>
               Select a category
@@ -80,26 +92,31 @@ const SideBar = ({
         </li>
         <li>
           <label className="text-sm">Filter by price:</label>
-          <input
-            type="range"
+          <Range
+            values={values}
+            step={10}
             min={0}
-            max="100"
-            step={25}
-            onChange={(e) =>
-              setActiveFilter({
-                ...activeFilter,
-                priceRange: { min: Number(e.target.value), max: 100 },
-              })
-            }
-            className="range [--range-fill:0]"
+            max={700}
+            onChange={(vals) => setValues(vals)}
+            renderTrack={({ props, children }) => (
+              <div
+                {...props}
+                className="h-2 bg-neutral rounded-full my-4"
+                style={{ ...props.style }}
+              >
+                {children}
+              </div>
+            )}
+            renderThumb={({ props }) => (
+              <div
+                {...props}
+                className="w-4 h-4 bg-primary rounded-full shadow-md"
+              />
+            )}
           />
-
-          <div className="flex justify-between px-2.5 mt-2 text-xs">
-            <span>0</span>
-            <span className="translate-x-2">50</span>
-            <span className="translate-x-3">100</span>
-            <span className="translate-x-3">150</span>
-            <span className="translate-x-3">200+</span>
+          <div className="flex justify-between text-xs text-gray-500 mt-2">
+            <span>${values[0]}</span>
+            <span>${values[1]}</span>
           </div>
         </li>
       </ul>
