@@ -34,7 +34,6 @@ const SideBar = ({
     setCurrentPage(0);
   };
 
-  console.log(activeFilter);
   useEffect(() => {
     getCategories();
     setActiveFilter({

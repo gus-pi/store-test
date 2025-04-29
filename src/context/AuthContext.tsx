@@ -13,23 +13,24 @@ export const AuthContext = createContext<AuthContextType | null>(null);
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
 
-  //   useEffect(() => {
-  //     fetchUser();
-  //   }, []);
+  useEffect(() => {
+    fetchUser();
+  }, []);
 
-  //   const fetchUser = async () => {
-  //     try {
-  //       const token = localStorage.getItem('user-access-token');
-  //       if (token) {
-  //         const userData = await getAuthenticatedUser(JSON.parse(token));
-  //         setUser(userData);
-  //         console.log('user: ', user);
-  //       }
-  //     } catch (error) {
-  //       console.error('User not logged in');
-  //       localStorage.removeItem('user-access-token');
-  //     }
-  //   };
+  const fetchUser = async () => {
+    try {
+      const token = localStorage.getItem('user-access-token');
+      console.log(token);
+      if (token) {
+        const userData = await getAuthenticatedUser(token);
+        setUser(userData);
+        console.log('user: ', user);
+      }
+    } catch (error) {
+      console.error('User not logged in');
+      localStorage.removeItem('user-access-token');
+    }
+  };
 
   const logout = () => {
     localStorage.removeItem('token');
