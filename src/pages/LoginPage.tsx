@@ -1,10 +1,12 @@
 import { useContext, useState } from 'react';
 import { getAuthenticatedUser, loginUser } from '../services/authServices';
 import { AuthContext } from '../context/AuthContext';
+import { useNavigate } from 'react-router';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const authContext = useContext(AuthContext);
   if (!authContext) {
@@ -29,6 +31,7 @@ const LoginPage = () => {
       if (userData) {
         setUser(userData);
       }
+      navigate('/products');
     } catch (error) {
       console.log(error);
     }
