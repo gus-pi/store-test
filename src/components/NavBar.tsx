@@ -1,6 +1,14 @@
+import { useContext } from 'react';
 import { Link } from 'react-router';
+import { AuthContext } from '../context/AuthContext';
 
 const NavBar = () => {
+  const authContext = useContext(AuthContext);
+  if (!authContext) {
+    throw new Error('AuthContext.Provider is missing!');
+  }
+
+  const { user } = authContext;
   return (
     <div className="navbar bg-base-100 shadow-sm gap-5">
       <a className="btn btn-ghost text-xl">Store</a>
@@ -42,6 +50,14 @@ const NavBar = () => {
           </div>
         </div>
       </div>
+      <div>{user?.name}</div>
+      {!user && (
+        <div>
+          <Link to={'/auth/login'} className="btn">
+            Sign in
+          </Link>
+        </div>
+      )}
     </div>
   );
 };
