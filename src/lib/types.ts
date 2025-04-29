@@ -19,3 +19,12 @@ export type Product = {
     category: Category,
     price: number
 }
+
+export type User = {
+    id: number,
+    email: string,
+    password: string,
+    name: string,
+    role: string,
+    avatar: string
+}

@@ -1,20 +1,37 @@
-import { useState } from 'react';
-import { loginUser } from '../services/authServices';
+import { useContext, useState } from 'react';
+import { getAuthenticatedUser, loginUser } from '../services/authServices';
+import { AuthContext } from '../context/AuthContext';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const fetchUser = async () => {
-    try {
-      const data = await loginUser(email, password);
-      console.log(data);
-    } catch (error) {}
-  };
+  const authContext = useContext(AuthContext);
+  if (!authContext) {
+    throw new Error('AuthContext.Provider is missing!');
+  }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const { setUser } = authContext;
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    fetchUser();
+    try {
+      const loginResponse = await loginUser(email, password);
+
+      if (!loginResponse || !loginResponse.access_token) {
+        console.log('Invalid login credentials.');
+        return;
+      }
+
+      const token = loginResponse.access_token;
+      const userData = await getAuthenticatedUser(token);
+
+      if (userData) {
+        setUser(userData);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className="text-center items-center mx-auto mt-10">
