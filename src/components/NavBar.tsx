@@ -8,7 +8,7 @@ const NavBar = () => {
     throw new Error('AuthContext.Provider is missing!');
   }
 
-  const { user } = authContext;
+  const { user, logout } = authContext;
   return (
     <div className="navbar bg-base-100 shadow-sm gap-5">
       <a className="btn btn-ghost text-xl">Store</a>
@@ -50,8 +50,14 @@ const NavBar = () => {
           </div>
         </div>
       </div>
-      <div>{user?.name}</div>
-      {!user && (
+      {user ? (
+        <div>
+          {user?.name}
+          <button className="btn btn-secondary btn-sm mx-10" onClick={logout}>
+            Log out
+          </button>
+        </div>
+      ) : (
         <div>
           <Link to={'/auth/login'} className="btn">
             Sign in
