@@ -17,13 +17,16 @@ const PrivateRoute = ({
   }
 
   const { user, loading } = authContext;
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
   if (!user && !loading) {
     alert('You must be logged in!');
     return <Navigate to="/auth/login" state={{ from: location }} replace />;
   }
 
   if (user && role !== user.role) {
-    alert('Not authorized');
     return <Navigate to="/auth/login" state={{ from: location }} replace />;
   }
   return children;
