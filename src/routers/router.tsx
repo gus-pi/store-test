@@ -6,6 +6,7 @@ import LoginPage from '../pages/LoginPage';
 import AdminDashboard from '../pages/AdminDashboard';
 import CartPage from '../pages/CartPage';
 import PrivateRoute from './PrivateRoute';
+import SignUpPage from '../pages/SignUpPage';
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
       { path: '/cart', element: <CartPage /> },
       { path: '/product/:id', element: <SingleProductPage /> },
       { path: '/auth/login', element: <LoginPage /> },
+      { path: '/auth/signup', element: <SignUpPage /> },
       {
         path: '/admin-dashboard',
         element: (
