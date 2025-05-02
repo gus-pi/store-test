@@ -7,8 +7,10 @@ const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const [error, setError] = useState('');
 
   const authContext = useContext(AuthContext);
+
   if (!authContext) {
     throw new Error('AuthContext.Provider is missing!');
   }
@@ -17,11 +19,13 @@ const LoginPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     try {
       const loginResponse = await loginUser(email, password);
 
       if (!loginResponse || !loginResponse.access_token) {
         console.log('Invalid login credentials.');
+        setError('Wrong username or password');
         return;
       }
 
@@ -31,8 +35,10 @@ const LoginPage = () => {
       if (userData) {
         setUser(userData);
       }
+      alert('Log in successful');
       navigate('/products');
-    } catch (error) {
+    } catch (error: any) {
+      setError('Error');
       console.log(error);
     }
   };
@@ -61,8 +67,9 @@ const LoginPage = () => {
         />
 
         <button className="btn btn-neutral mt-4" type="submit">
-          Login
+          Log in
         </button>
+        {error && <p className="text-red-500 mt-2">{error}</p>}
       </form>
     </div>
   );
