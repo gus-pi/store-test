@@ -16,7 +16,7 @@ export const loginUser = async (email: string, password: string) => {
     localStorage.setItem('user-access-token', data.access_token);
     return data;
   } catch (error) {
-    console.log('error fetching categoriest: ', error);
+    console.log('error logging in user: ', error);
   }
 };
 
