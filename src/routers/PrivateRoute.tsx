@@ -27,6 +27,7 @@ const PrivateRoute = ({
   }
 
   if (user && role !== user.role) {
+    alert('Usuario y contraseña incorrecto');
     return <Navigate to="/auth/login" state={{ from: location }} replace />;
   }
   return children;
