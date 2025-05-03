@@ -6,7 +6,7 @@ type CartContextType = {
   addItemToCart: (item: Product) => void;
   removeItemFromCart: (item: CartItem) => void;
   clearCart: () => void;
-  getCartTotal: () => void;
+  getCartTotal: () => number;
 };
 
 export const CartContext = createContext<CartContextType | null>(null);

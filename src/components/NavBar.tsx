@@ -1,9 +1,10 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router';
 import { AuthContext } from '../context/AuthContext';
 import { CartContext } from '../context/CartContext';
 
 const NavBar = () => {
+  const [cartTotal, setCartTotal] = useState(0);
   const authContext = useContext(AuthContext);
   if (!authContext) {
     throw new Error('AuthContext.Provider is missing!');
@@ -17,7 +18,9 @@ const NavBar = () => {
     throw new Error('AuthContext.Provider is missing!');
   }
 
-  const { cartItems } = cartContext;
+  const { cartItems, getCartTotal } = cartContext;
+
+  const total = getCartTotal();
   return (
     <div className="navbar bg-base-100 shadow-sm gap-5">
       <a className="btn btn-ghost text-xl">Store</a>
@@ -52,8 +55,10 @@ const NavBar = () => {
             className="card card-compact dropdown-content bg-base-100 z-1 mt-3 w-52 shadow"
           >
             <div className="card-body">
-              <span className="text-lg font-bold">8 Items</span>
-              <span className="text-info">Subtotal: $999</span>
+              <span className="text-lg font-bold">
+                {cartItems.length} Items
+              </span>
+              <span className="text-info">Subtotal: ${total}</span>
               <div className="card-actions">
                 <button className="btn btn-primary btn-block">View cart</button>
               </div>

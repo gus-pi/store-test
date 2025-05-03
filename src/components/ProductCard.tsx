@@ -10,7 +10,7 @@ const ProductCard = ({ product }: { product: Product }) => {
     throw new Error('AuthContext.Provider is missing!');
   }
 
-  const { cartItems, addItemToCart } = cartContext;
+  const { addItemToCart } = cartContext;
   return (
     <div className="card bg-base-100 w-64 h-96 shadow-sm flex flex-col overflow-hidden">
       <figure className="h-1/2 overflow-hidden ">
