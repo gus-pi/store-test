@@ -20,6 +20,10 @@ export type Product = {
     price: number
 }
 
+export type CartItem = Product & {
+    quantity: number
+}
+
 export type User = {
     id: number,
     email: string,
