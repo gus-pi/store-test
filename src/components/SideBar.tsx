@@ -15,7 +15,7 @@ const SideBar = ({
   setCurrentPage,
 }: SideBarProps) => {
   const [categories, setCategories] = useState<Category[]>();
-  const [values, setValues] = useState([0, 700]);
+  const [values, setValues] = useState([1, 700]);
   const getCategories = async () => {
     try {
       const categoriesData = await fetchCategories();
@@ -94,7 +94,7 @@ const SideBar = ({
           <Range
             values={values}
             step={10}
-            min={0}
+            min={1}
             max={700}
             onChange={(vals) => setValues(vals)}
             renderTrack={({ props, children }) => (
