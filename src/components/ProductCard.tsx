@@ -10,7 +10,9 @@ const ProductCard = ({ product }: { product: Product }) => {
     throw new Error('AuthContext.Provider is missing!');
   }
 
-  const { addItemToCart } = cartContext;
+  const { cartItems, addItemToCart, removeItemFromCart } = cartContext;
+
+  const cartItem = cartItems.find((item) => item.id === product.id);
   return (
     <div className="card bg-base-100 w-64 h-96 shadow-sm flex flex-col overflow-hidden">
       <figure className="h-1/2 overflow-hidden ">
@@ -37,12 +39,30 @@ const ProductCard = ({ product }: { product: Product }) => {
         <div className="flex justify-between items-center">
           <div className="text-xl">${product.price}</div>
           <div className="card-actions justify-end">
-            <button
-              className="btn btn-sm btn-primary"
-              onClick={() => addItemToCart(product)}
-            >
-              Add to Cart
-            </button>
+            {cartItem ? (
+              <div className="flex items-center gap-1">
+                <button
+                  className="btn btn-xs"
+                  onClick={() => removeItemFromCart(cartItem)}
+                >
+                  -
+                </button>
+                {cartItem.quantity}
+                <button
+                  className="btn btn-xs"
+                  onClick={() => addItemToCart(product)}
+                >
+                  +
+                </button>
+              </div>
+            ) : (
+              <button
+                className="btn btn-sm btn-primary"
+                onClick={() => addItemToCart(product)}
+              >
+                Add to Cart
+              </button>
+            )}
           </div>
         </div>
       </div>
