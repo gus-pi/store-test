@@ -4,7 +4,6 @@ import { AuthContext } from '../context/AuthContext';
 import { CartContext } from '../context/CartContext';
 
 const NavBar = () => {
-  const [cartTotal, setCartTotal] = useState(0);
   const authContext = useContext(AuthContext);
   if (!authContext) {
     throw new Error('AuthContext.Provider is missing!');
@@ -60,7 +59,9 @@ const NavBar = () => {
               </span>
               <span className="text-info">Subtotal: ${total}</span>
               <div className="card-actions">
-                <button className="btn btn-primary btn-block">View cart</button>
+                <Link to="/cart" className="btn btn-primary btn-block">
+                  View cart
+                </Link>
               </div>
             </div>
           </div>
