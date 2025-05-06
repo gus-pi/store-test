@@ -5,6 +5,7 @@ type CartContextType = {
   cartItems: CartItem[];
   addItemToCart: (item: Product) => void;
   removeItemFromCart: (item: CartItem) => void;
+  decreaseItemFromCart: (item: CartItem) => void;
   clearCart: () => void;
   getCartTotal: () => number;
 };
@@ -31,7 +32,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const removeItemFromCart = (item: CartItem) => {
+  const decreaseItemFromCart = (item: CartItem) => {
     const isItemInCart = cartItems.find((cartItem) => cartItem.id === item.id);
 
     if (isItemInCart?.quantity === 1) {
@@ -45,6 +46,10 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         )
       );
     }
+  };
+
+  const removeItemFromCart = (item: CartItem) => {
+    setCartItems(cartItems.filter((cartItem) => cartItem.id !== item.id));
   };
 
   const clearCart = () => {
@@ -64,6 +69,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         cartItems,
         addItemToCart,
         removeItemFromCart,
+        decreaseItemFromCart,
         clearCart,
         getCartTotal,
       }}

@@ -10,7 +10,7 @@ const ProductCard = ({ product }: { product: Product }) => {
     throw new Error('AuthContext.Provider is missing!');
   }
 
-  const { cartItems, addItemToCart, removeItemFromCart } = cartContext;
+  const { cartItems, addItemToCart, decreaseItemFromCart } = cartContext;
 
   const cartItem = cartItems.find((item) => item.id === product.id);
   return (
@@ -43,7 +43,7 @@ const ProductCard = ({ product }: { product: Product }) => {
               <div className="flex items-center gap-1">
                 <button
                   className="btn btn-xs"
-                  onClick={() => removeItemFromCart(cartItem)}
+                  onClick={() => decreaseItemFromCart(cartItem)}
                 >
                   -
                 </button>
