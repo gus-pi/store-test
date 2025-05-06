@@ -19,7 +19,7 @@ const router = createBrowserRouter([
       { path: '/auth/login', element: <LoginPage /> },
       { path: '/auth/signup', element: <SignUpPage /> },
       {
-        path: '/admin-dashboard',
+        path: '/add-product',
         element: (
           <PrivateRoute role="admin">
             <AdminDashboard />

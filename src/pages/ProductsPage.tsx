@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Product } from '../lib/types';
 import { fetchProducts } from '../services/productServices';
 import ProductCard from '../components/ProductCard';
 import SideBar from '../components/SideBar';
 import { useDebouncedCallback } from 'use-debounce';
+import { AuthContext } from '../context/AuthContext';
+import { Link } from 'react-router';
 
 const ProductsPage = () => {
   const [products, setProducts] = useState<Product[]>();
@@ -15,6 +17,13 @@ const ProductsPage = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const limit = 8;
   const totalPages = Math.ceil(50 / limit);
+
+  const authContext = useContext(AuthContext);
+  if (!authContext) {
+    throw new Error('AuthContext.Provider is missing!');
+  }
+
+  const { user } = authContext;
 
   const getProducts = async () => {
     try {
@@ -48,6 +57,11 @@ const ProductsPage = () => {
         setCurrentPage={setCurrentPage}
       />
       <div className="flex-1 flex flex-col items-center justify-start py-5 px-5">
+        {user?.role === 'admin' && (
+          <Link to={'/add-product'} className="btn btn-primary">
+            +Add a Product
+          </Link>
+        )}
         {products && products.length > 0 ? (
           <>
             <ul className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 gap-5">
