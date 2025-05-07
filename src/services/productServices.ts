@@ -21,13 +21,17 @@ export const fetchSingleProduct = async (id: string) => {
 
 }
 
-export const createProduct = async (product: Product) => {
+export const createProduct = async (title: string,
+    price: number,
+    description: string,
+    categoryId: number,
+    images: string[]) => {
     const productToCreate = {
-        title: product.title,
-        price: product.price,
-        description: product.description,
-        categoryId: product.category,
-        images: product.images
+        title: title,
+        price: price,
+        description: description,
+        categoryId: categoryId,
+        images: images
     }
     try {
         const response = await fetch('https://api.escuelajs.co/api/v1/products/', {
@@ -36,7 +40,7 @@ export const createProduct = async (product: Product) => {
                 'Content-Type': 'application/json',
             },
 
-            body: JSON.stringify({ productToCreate }),
+            body: JSON.stringify(productToCreate),
         })
         const data = await response.json()
         return data

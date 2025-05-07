@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react';
 import { Category, Product } from '../lib/types';
 import { fetchCategories } from '../services/categoryServices';
+import { createProduct } from '../services/productServices';
+import { useNavigate } from 'react-router';
 
 const AdminDashboard = () => {
   const [categories, setCategories] = useState<Category[]>();
-  const [newProduct, setNewProduct] = useState<Product>({
-    id: '',
+  const [image, setImage] = useState('');
+  const [newProduct, setNewProduct] = useState({
     title: '',
     price: 0,
     description: '',
     category: { id: '', name: '', slug: '' },
-    images: [''],
   });
+
+  const navigate = useNavigate();
 
   const getCategories = async () => {
     try {
@@ -26,12 +29,43 @@ const AdminDashboard = () => {
     getCategories();
   }, []);
 
-  const handleChange = () => {};
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    const { name, value } = e.target;
+    setNewProduct({ ...newProduct, [name]: value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log(newProduct);
+
+    try {
+      const productCreated = await createProduct(
+        newProduct.title,
+        newProduct.price,
+        newProduct.description,
+        1,
+        [image]
+      );
+      console.log('created:', productCreated);
+      if (productCreated.statusCode === 200) {
+        alert('New product created successfully!');
+        navigate('/products');
+      } else {
+        console.log('Error creating product');
+      }
+    } catch (error) {
+      console.log('Error creating product');
+    }
+  };
 
   return (
     <div className="flex flex-col justify-center mx-auto mt-5">
       <h1 className="text-3xl font-black mb-4">Add a Product</h1>
-      <fieldset className="fieldset">
+      <form className="fieldset" onSubmit={handleSubmit}>
         <legend className="fieldset-legend">Title</legend>
         <input
           type="text"
@@ -94,15 +128,17 @@ const AdminDashboard = () => {
             required
             placeholder="https://"
             name="images"
-            value={newProduct.images[0]}
-            onChange={handleChange}
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
             pattern="^(https?://)?([a-zA-Z0-9]([a-zA-Z0-9\-].*[a-zA-Z0-9])?\.)+[a-zA-Z].*$"
             title="Must be valid URL"
           />
         </label>
         <p className="validator-hint">Must be valid URL</p>
-        <button className="btn btn-info mt-4">Create</button>
-      </fieldset>
+        <button className="btn btn-info mt-4" type="submit">
+          Create
+        </button>
+      </form>
     </div>
   );
 };

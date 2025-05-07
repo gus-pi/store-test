@@ -13,7 +13,7 @@ export type Filter = {
 
 export type Product = {
     id: string,
-    images: [string],
+    images: string[],
     title: string,
     description: string,
     category: Category,
