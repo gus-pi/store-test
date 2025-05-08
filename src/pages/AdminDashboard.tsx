@@ -11,7 +11,7 @@ const AdminDashboard = () => {
     title: '',
     price: 0,
     description: '',
-    category: { id: '', name: '', slug: '' },
+    category: 1,
   });
 
   const navigate = useNavigate();
@@ -40,18 +40,18 @@ const AdminDashboard = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(newProduct);
+    console.log('product: ', newProduct);
 
     try {
       const productCreated = await createProduct(
         newProduct.title,
         newProduct.price,
         newProduct.description,
-        1,
+        newProduct.category,
         [image]
       );
-      console.log('created:', productCreated);
-      if (productCreated.statusCode === 200) {
+
+      if (productCreated.title != '') {
         alert('New product created successfully!');
         navigate('/products');
       } else {
@@ -96,7 +96,7 @@ const AdminDashboard = () => {
         <select
           className=""
           name="category"
-          value={newProduct.category.id}
+          value={newProduct.category}
           onChange={handleChange}
         >
           {categories?.map((category, index) => (

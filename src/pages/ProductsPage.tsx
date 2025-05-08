@@ -58,7 +58,7 @@ const ProductsPage = () => {
       />
       <div className="flex-1 flex flex-col items-center justify-start py-5 px-5">
         {user?.role === 'admin' && (
-          <Link to={'/add-product'} className="btn btn-primary">
+          <Link to={'/add-product'} className="btn btn-primary mb-4">
             +Add a Product
           </Link>
         )}
